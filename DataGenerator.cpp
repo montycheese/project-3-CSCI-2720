@@ -23,8 +23,8 @@ int arrayLength = 0;
 void generator(int seed, int n, int* array) {
 	srand (seed);
 	for (int i = 0; i < n; i++) {
-		// array[i] = rand() % n;
-		array[i] = rand() % 100;
+		array[i] = rand() % n;
+		// array[i] = rand() % 100;
 	}
 }
 
@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 
 	for (int i = 0; i < totalNum; i++) {
 
-		arrayLength = (i+1) * 100;
+		arrayLength = (i+1) * 1000;
 
 		// populate data for sorting; sort
 		for (int j = 1; j <= rounds; j++) {
@@ -48,16 +48,13 @@ int main(int argc, char *argv[]) {
 
 			// sort and count
 			if (strcmp(argv[1], "1") == 0) {
-				totalCmp += sortFunction(data, 1, arrayLength, whetherReport); 
-				// strcpy(fileName, "Insert.txt");
+				totalCmp += sortFunction(data, 1, arrayLength, whetherReport) / rounds; 
 			}
 			if (strcmp(argv[1], "2") == 0) {
-				totalCmp += sortFunction(data, 2, arrayLength, whetherReport); 
-				// strcpy(fileName, "Merge.txt");
+				totalCmp += sortFunction(data, 2, arrayLength, whetherReport) / rounds; 
 			}
 			if (strcmp(argv[1], "3") == 0) {
-				totalCmp += sortFunction(data, 3, arrayLength, whetherReport); 
-				// strcpy(fileName, "Quick.txt");
+				totalCmp += sortFunction(data, 3, arrayLength, whetherReport) / rounds; 
 			}
 
 			// free data
@@ -65,7 +62,7 @@ int main(int argc, char *argv[]) {
 		}
 
 		// save cmp data to vector
-		avgCmp[i] = totalCmp / rounds;
+		avgCmp[i] = totalCmp;
 	}
 
 
