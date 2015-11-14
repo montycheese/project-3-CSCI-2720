@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "sortFunction.h"
 
 using namespace std;
 
@@ -38,17 +39,17 @@ int main(int argc, char *argv[]) {
 			generator(seed, i, data);
 
 			if (strcmp(argv[1], "1") == 0) {
-				totalCmp += sortFunction(data, 1); 
+				totalCmp += sortFunction(data, 1, i); 
 				fileName = "Insert";
 			}
 
 			if (strcmp(argv[1], "2") == 0) {
-				totalCmp += sortFunction(data, 2); 
+				totalCmp += sortFunction(data, 2, i); 
 				fileName = "Merge";
 			}
 
 			if (strcmp(argv[1], "3") == 0) {
-				totalCmp += sortFunction(data, 3); 
+				totalCmp += sortFunction(data, 3, i); 
 				fileName = "Quick";
 			}
 		}

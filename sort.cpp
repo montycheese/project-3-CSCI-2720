@@ -9,25 +9,6 @@ int * theArray;
 int length;
 
 
-int sortFunction(int * data, int mode = 1) {
-	if (mode == 1) {
-		// insertion sort
-		insertionSort(data);
-	} 
-	if (mode == 2) {
-		// merge sort
-		mergeSort(data);
-	}
-
-	if (mode == 3) {
-		// quick sort
-		quickSort(data);
-	}
-
-	return 0;
-}
-
-
 int main(int argc, char *argv[]) {
 	if (argv[1][0] == '-') {
 		// determine the mode
