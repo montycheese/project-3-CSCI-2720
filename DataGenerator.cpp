@@ -10,7 +10,7 @@ using namespace std;
 int seed = 0;
 int * data;
 long * avgCmp;
-long totalCmp;
+long totalCmp = 0;
 string fileName;
 
 // generate n random numbers, given a n
@@ -37,18 +37,18 @@ int main(int argc, char *argv[]) {
 			seed = j;
 			generator(seed, i, data);
 
-			if (argv[1] == 1) {
-				totalCmp += sortFunction(data); // to be replaced
+			if (strcmp(argv[1], "1") == 0) {
+				totalCmp += sortFunction(data, 1); 
 				fileName = "Insert";
 			}
 
-			if (argv[1] == 2) {
-				totalCmp += sortFunction(data); // to be replaced
+			if (strcmp(argv[1], "2") == 0) {
+				totalCmp += sortFunction(data, 2); 
 				fileName = "Merge";
 			}
 
-			if (argv[1] == 3) {
-				totalCmp += sortFunction(data); // to be replaced
+			if (strcmp(argv[1], "3") == 0) {
+				totalCmp += sortFunction(data, 3); 
 				fileName = "Quick";
 			}
 		}
