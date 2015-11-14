@@ -3,10 +3,12 @@
 #include <string>
 #include "sortFunction.h"
 
+using namespace std;
 
 int mode = -1;
 int * theArray;
 int length;
+int whetherReport = 1;
 
 
 int main(int argc, char *argv[]) {
@@ -43,7 +45,9 @@ int main(int argc, char *argv[]) {
 		}
 
 		// sort and report
-		sortFunction(theArray, mode);
+		sortFunction(theArray, mode, length, whetherReport);
+
+		// free memory
 		free(theArray);
 
 	} else {

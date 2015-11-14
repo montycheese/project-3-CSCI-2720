@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
-#include <string>
+#include <string.h>
 #include "sortFunction.h"
 
 using namespace std;
@@ -10,15 +10,21 @@ using namespace std;
 // set up seed
 int seed = 0;
 int * data;
+int whetherReport = 0;
 long * avgCmp;
 long totalCmp = 0;
-string fileName;
+int totalNum = 100;
+int rounds = 50;
+char fileName[16];
+
+int arrayLength = 0;
 
 // generate n random numbers, given a n
 void generator(int seed, int n, int* array) {
 	srand (seed);
 	for (int i = 0; i < n; i++) {
-		array[i] = rand() % n;
+		// array[i] = rand() % n;
+		array[i] = rand() % 100;
 	}
 }
 
@@ -26,50 +32,67 @@ void generator(int seed, int n, int* array) {
 int main(int argc, char *argv[]) {
 
 	// prepare vector
-	avgCmp = (long*) calloc (i, sizeof(long));
+	avgCmp = (long*) calloc (totalNum, sizeof(long));
 
-	for (int i = 1000; i <= 100000; i = i + 1000) {
+	for (int i = 0; i < totalNum; i++) {
 
-		// prepare data for sorting
-		data = (int*) calloc (i, sizeof(int));
+		arrayLength = (i+1) * 100;
 
 		// populate data for sorting; sort
-		for (int j = 1; j <= 50; j++) {
+		for (int j = 1; j <= rounds; j++) {
+
+			// prepare data for sorting
+			data = (int*) calloc (arrayLength, sizeof(int));
 			seed = j;
-			generator(seed, i, data);
+			generator(seed, arrayLength, data);
 
+			// sort and count
 			if (strcmp(argv[1], "1") == 0) {
-				totalCmp += sortFunction(data, 1, i); 
-				fileName = "Insert";
+				totalCmp += sortFunction(data, 1, arrayLength, whetherReport); 
+				// strcpy(fileName, "Insert.txt");
 			}
-
 			if (strcmp(argv[1], "2") == 0) {
-				totalCmp += sortFunction(data, 2, i); 
-				fileName = "Merge";
+				totalCmp += sortFunction(data, 2, arrayLength, whetherReport); 
+				// strcpy(fileName, "Merge.txt");
+			}
+			if (strcmp(argv[1], "3") == 0) {
+				totalCmp += sortFunction(data, 3, arrayLength, whetherReport); 
+				// strcpy(fileName, "Quick.txt");
 			}
 
-			if (strcmp(argv[1], "3") == 0) {
-				totalCmp += sortFunction(data, 3, i); 
-				fileName = "Quick";
-			}
+			// free data
+			free(data);
 		}
 
-		// free data
-		free(data);
-
 		// save cmp data to vector
-		avgCmp[i/1000] = totalCmp / 50;
+		avgCmp[i] = totalCmp / rounds;
 	}
 
-	// write the vector to a txt file
+
+	// for (int i = 0; i < totalNum; i++) {
+	// 	printf("%ld ", avgCmp[i]);
+	// }
+	// printf("\n");
+
+
+	// write to a file
+	if (strcmp(argv[1], "1") == 0) {
+		strcpy(fileName, "Insert.txt");
+	}
+	if (strcmp(argv[1], "2") == 0) {
+		strcpy(fileName, "Merge.txt");
+	}
+	if (strcmp(argv[1], "3") == 0) {
+		strcpy(fileName, "Quick.txt");
+	}
+
 	ofstream theFile;
 	// file name
-	fileName = fileName + ".txt";
 	theFile.open(fileName);
 	// write data
-	for(int count = 0; count < 100; count++){
-        theFile << avgCmp[count] << " " ;
-    }
+	for(int count = 0; count < totalNum; count++){
+		theFile << avgCmp[count] << " " ;
+	}
 	theFile.close();
 
 	// free vector
