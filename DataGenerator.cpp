@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 
 	for (int i = 0; i < totalNum; i++) {
 
-		arrayLength = (i+1) * 1000;
+		arrayLength = (i+1) * 100;
 
 		// populate data for sorting; sort
 		for (int j = 1; j <= rounds; j++) {
@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
 
 			// sort and count
 			if (strcmp(argv[1], "1") == 0) {
-				totalCmp += sortFunction(data, 1, arrayLength, whetherReport) / rounds; 
+				totalCmp += sortFunction(data, 1, arrayLength, whetherReport) / rounds;
 			}
 			if (strcmp(argv[1], "2") == 0) {
 				totalCmp += sortFunction(data, 2, arrayLength, whetherReport) / rounds; 
@@ -63,6 +63,7 @@ int main(int argc, char *argv[]) {
 
 		// save cmp data to vector
 		avgCmp[i] = totalCmp;
+		totalCmp = 0;
 	}
 
 
