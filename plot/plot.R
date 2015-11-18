@@ -14,11 +14,21 @@ data.cmp <- data.cmp[1:100]
 plot(data.size, 
      data.cmp,
      type = "l",
+     bty="n",
      xlab= "Data Size",
      ylab="Numbers of Comparisons",
      main = "Insertion Sorting")
 lines(data.size, 
       0.26*data.size*data.size, 
       type ="l", 
-      col = "Red")
-lines(data.size, data.size, type ="l", col = "Green")
+      col = "red")
+lines(data.size, data.size, type ="l", col = "green")
+# legend
+legend("topleft", 
+       bty="n",
+       legend = c("Theoretical Upperbound", "Theoretical lowerbound"),
+       lty = c(1, 1), 
+       col = c("red", "green"),
+       lwd = 1,
+       pt.lwd = 1,
+       text.width = 1)

@@ -21,6 +21,7 @@ int insertionSort(int * data, int length, int whetherReport) {
 		}
 		data[j+1] = key;
 	}
+	cmpNumber++;
 
 	if (whetherReport == 1) {
 		// report sorted results
