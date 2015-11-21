@@ -6,8 +6,8 @@
 using namespace std;
 
 //define method sig
-void merge(int *data,int hi, int mid, int low, long * cmpNumber);
-long mergeSort(int * data, int hi, int low);
+void merge(int *data, int * temp, int lo, int mid, int hi, long * cmpNumber);
+void mergeSort(int * data, int * temp, int lo, int hi, long * cmpNumber);
 
 //insertion
 int insertionSort(int * data, int length, int whetherReport) {
@@ -47,57 +47,77 @@ int insertionSort(int * data, int length, int whetherReport) {
 // merge sort
 long mergeSortOutput(int * data, int length, int whetherReport) {
     long cmpNumber = 0;
-    mergeSort(data, length - 1, 0, &cmpNumber);
+    int * temp = new int[length];
     
-    //TODO debug current isssue w/ final output
-    for(int i=0; i < length; i++){
-        printf("%d ", data[i]);
+    mergeSort(data, temp, 0, length - 1, &cmpNumber);
+    
+    if(whetherReport == 1){
+        //report sorted array
+        printf("Merge sort: ");
+        for(int i=0; i < length; i++){
+            printf("%d ", data[i]);
+        }
+        //len of array
+        printf("Input size: %d\n", length);
+        //num comparisons via merge sort
+        printf("\Total # of comparisons: %ld\n", cmpNumber);
     }
-    printf("\n");
     return cmpNumber;
 }
 
-long mergeSort(int * data, int hi, int low, long * cmpNumber){
-    if (low < hi){
-        int mid = (hi / 2) + (low / 2);
-        mergeSort(data, mid, low);
-        mergeSort(data, hi, mid+1);
-        merge(data, hi, mid, low, cmpNumber);
+void mergeSort(int * data, int * temp, int lo, int hi,long * cmpNumber){
+    if (lo < hi){
+        int mid = (hi +lo) / 2;
+        //recursively call method on lower half of array
+        //divide
+        mergeSort(data, temp, lo, mid, cmpNumber);
+        //recursively call method on upper half of array
+        //divide
+        mergeSort(data, temp, mid+1, hi, cmpNumber);
+        //join the two partitions
+        //conquer
+        merge(data, temp, lo, mid+1, hi, cmpNumber);
     }
 }
 
-//merge
-void merge(int *data,int hi, int mid, int low, long * cmpNumber){
-    int next1 = mid - low + 1;
-    int next2 = hi - mid;
-    int * left, * right;
+void merge(int * data, int * temp, int lo, int mid, int hi,long * cmpNumber){
+    int i       = 0,
+    leftEnd     = mid - 1,
+    tmp         = lo,
+    numElements = hi - lo + 1;
     
-    //create left and right arrays
-    left = new int[next1];
-    right = new int[next2];
-    
-    //init values
-    for(int i = 0; i < next1; i++)
-        left[i] = data[low + i - 1];
-    for(int i = 0; i < next2; i++)
-        right[i] = data[mid + i];
-    
-    //set indicies
-    int l,r;
-    l = r = 0;
-    
-    for(int i =low; i < hi; i++){
-        if(left[l] <= right[r]){
-            data[i] = left[l++];
+    //put lower elements in left half of temp array and higher
+    //elements in right half of temp array
+    while ((lo <= leftEnd) && (mid <= hi)){
+        if(data[lo] <= data[mid]){
+            temp[tmp] = data[lo];
+            lo++;
         }
         else{
-            data[i] = right[r++];
+            temp[tmp] = data[mid];
+            mid++;
         }
-        *cmpNumber += 1;
+        *cmpNumber+=1;
+        tmp++;
     }
     
-    free(left);
-    free(right);
+    while (lo <= leftEnd){
+        temp[tmp] = data[lo];
+        lo++;
+        tmp++;
+        *cmpNumber+=1;
+    }
+    while (mid <= hi){
+        temp[tmp] = data[mid];
+        mid++;
+        tmp++;
+        *cmpNumber+=1;
+    }
+    //copy sorted values to original array.
+    for(i=0;i <= numElements;i++){
+        data[hi] = temp[hi];
+        hi--;
+    }
 }
 
 // quick
