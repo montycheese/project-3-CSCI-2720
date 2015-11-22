@@ -2,12 +2,15 @@
 #include <stdlib.h>
 #include <string>
 #include <iostream>
+#include <time.h>
 
 using namespace std;
 
-//define method sig
+//define method signature before declaration.
 void merge(int *data, int * temp, int lo, int mid, int hi, long * cmpNumber);
 void mergeSort(int * data, int * temp, int lo, int hi, long * cmpNumber);
+int partition(int * data, int lo, int hi, long * cmpNumber);
+void quickSort(int * data, int lo, int hi, long * cmpNumber);
 
 //insertion
 int insertionSort(int * data, int length, int whetherReport) {
@@ -58,9 +61,9 @@ long mergeSortOutput(int * data, int length, int whetherReport) {
             printf("%d ", data[i]);
         }
         //len of array
-        printf("Input size: %d\n", length);
+        printf("\nInput size: %d\n", length);
         //num comparisons via merge sort
-        printf("\Total # of comparisons: %ld\n", cmpNumber);
+        printf("Total # of comparisons: %ld\n", cmpNumber);
     }
     return cmpNumber;
 }
@@ -121,8 +124,56 @@ void merge(int * data, int * temp, int lo, int mid, int hi,long * cmpNumber){
 }
 
 // quick
-int quickSort(int * data, int length, int whetherReport) {
+int quickSortOutput(int * data, int length, int whetherReport) {
+    int hi = length-1,
+    lo     = 0;
+    long cmpNumber = 0;
+    quickSort(data, lo, hi, &cmpNumber);
+    
+    if(whetherReport == 1){
+        //report sorted array
+        printf("Quick sort: ");
+        for(int i=0; i < length; i++){
+            printf("%d ", data[i]);
+        }
+        //len of array
+        printf("\nInput size: %d\n", length);
+        //num comparisons via merge sort
+        printf("Total # of comparisons: %ld\n", cmpNumber);
+}
 
+    }
+void quickSort(int * data, int lo, int hi, long * cmpNumber){
+    if(lo < hi){
+    int pivot;
+        // divide, and derive a midpoint
+        pivot = partition(data, lo, hi, cmpNumber);
+        //conquer, using pivot as midpoint
+        quickSort(data, lo, pivot-1, cmpNumber);
+        quickSort(data, pivot+1, hi, cmpNumber);
+    }
+}
+
+int partition(int * data, int lo, int hi, long * cmpNumber){
+    int pivot = data[hi],
+    i     = lo - 1,
+    temp;
+    //iterate through array and set every element smaller than pivot before it.
+    for(int j = lo; j <= hi - 1; j++){
+        if(data[j] <= pivot){
+            ++i;
+            temp = data[i];
+            data[i] = data[j];
+            data[j] = temp;
+        }
+        //inc number of comparisons
+        *cmpNumber += 1;
+    }
+    temp = data[i+1];
+    data[i+1] = data[hi];
+    data[hi] = temp;
+    return ++i;
+    
 }
 
 // sort wrapper
@@ -138,6 +189,6 @@ int sortFunction(int * data, int mode, int length, int whetherReport) {
 
 	if (mode == 3) {
 		// quick sort
-		quickSort(data, length, whetherReport);
+		quickSortOutput(data, length, whetherReport);
 	}
 }
