@@ -1,16 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
-#include <iostream>
-#include <time.h>
 
 using namespace std;
 
 //define method signature before declaration.
-void merge(int *data, int * temp, int lo, int mid, int hi, long * cmpNumber);
-void mergeSort(int * data, int * temp, int lo, int hi, long * cmpNumber);
-int partition(int * data, int lo, int hi, long * cmpNumber);
-void quickSort(int * data, int lo, int hi, long * cmpNumber);
+void merge(int *data, int * temp, int lo, int mid, int hi, int * cmpNumber);
+void mergeSort(int * data, int * temp, int lo, int hi, int * cmpNumber);
+int partition(int * data, int lo, int hi, int * cmpNumber);
+void quickSort(int * data, int lo, int hi, int * cmpNumber);
 
 //insertion
 int insertionSort(int * data, int length, int whetherReport) {
@@ -42,14 +40,13 @@ int insertionSort(int * data, int length, int whetherReport) {
 		printf("Input size: %d\n", length);
 		// report total comparison
 		printf("Total # comparisons: %d\n", cmpNumber);
-	} else {
-		return cmpNumber;
 	}
+    return cmpNumber;
 }
 
 // merge sort
-long mergeSortOutput(int * data, int length, int whetherReport) {
-    long cmpNumber = 0;
+int mergeSortOutput(int * data, int length, int whetherReport) {
+    int cmpNumber = 0;
     int * temp = new int[length];
     
     mergeSort(data, temp, 0, length - 1, &cmpNumber);
@@ -63,12 +60,12 @@ long mergeSortOutput(int * data, int length, int whetherReport) {
         //len of array
         printf("\nInput size: %d\n", length);
         //num comparisons via merge sort
-        printf("Total # of comparisons: %ld\n", cmpNumber);
+        printf("Total # of comparisons: %d\n", cmpNumber);
     }
     return cmpNumber;
 }
 
-void mergeSort(int * data, int * temp, int lo, int hi,long * cmpNumber){
+void mergeSort(int * data, int * temp, int lo, int hi,int * cmpNumber){
     if (lo < hi){
         int mid = (hi +lo) / 2;
         //recursively call method on lower half of array
@@ -83,7 +80,7 @@ void mergeSort(int * data, int * temp, int lo, int hi,long * cmpNumber){
     }
 }
 
-void merge(int * data, int * temp, int lo, int mid, int hi,long * cmpNumber){
+void merge(int * data, int * temp, int lo, int mid, int hi,int * cmpNumber){
     int i       = 0,
     leftEnd     = mid - 1,
     tmp         = lo,
@@ -127,7 +124,7 @@ void merge(int * data, int * temp, int lo, int mid, int hi,long * cmpNumber){
 int quickSortOutput(int * data, int length, int whetherReport) {
     int hi = length-1,
     lo     = 0;
-    long cmpNumber = 0;
+    int cmpNumber = 0;
     quickSort(data, lo, hi, &cmpNumber);
     
     if(whetherReport == 1){
@@ -139,11 +136,12 @@ int quickSortOutput(int * data, int length, int whetherReport) {
         //len of array
         printf("\nInput size: %d\n", length);
         //num comparisons via merge sort
-        printf("Total # of comparisons: %ld\n", cmpNumber);
-}
-
+        printf("Total # of comparisons: %d\n", cmpNumber);
     }
-void quickSort(int * data, int lo, int hi, long * cmpNumber){
+    return cmpNumber;
+
+}
+void quickSort(int * data, int lo, int hi, int * cmpNumber){
     if(lo < hi){
     int pivot;
         // divide, and derive a midpoint
@@ -154,7 +152,7 @@ void quickSort(int * data, int lo, int hi, long * cmpNumber){
     }
 }
 
-int partition(int * data, int lo, int hi, long * cmpNumber){
+int partition(int * data, int lo, int hi, int * cmpNumber){
     int pivot = data[hi],
     i     = lo - 1,
     temp;
@@ -169,26 +167,23 @@ int partition(int * data, int lo, int hi, long * cmpNumber){
         //inc number of comparisons
         *cmpNumber += 1;
     }
+    //switch "wall" with pivot
     temp = data[i+1];
     data[i+1] = data[hi];
     data[hi] = temp;
     return ++i;
-    
 }
 
 // sort wrapper
 int sortFunction(int * data, int mode, int length, int whetherReport) {
-	if (mode == 1) {
-		// insertion sort
-		insertionSort(data, length, whetherReport);
-	} 
-	if (mode == 2) {
-		// merge sort
-		mergeSortOutput(data, length, whetherReport);
-	}
-
-	if (mode == 3) {
-		// quick sort
-		quickSortOutput(data, length, whetherReport);
-	}
+    switch(mode){
+        case 1: // insertion sort
+                return insertionSort(data, length, whetherReport);
+        case 2: // merge sort
+                return mergeSortOutput(data, length, whetherReport);
+        case 3: // quick sort
+                return quickSortOutput(data, length, whetherReport);
+        default: return -1; // error condition
+    }
+	
 }
