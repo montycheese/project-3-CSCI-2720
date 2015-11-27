@@ -1,4 +1,4 @@
-setwd("C:/Users/4malteses/Desktop/plot")
+# setwd("C:/Users/4malteses/Desktop/plot")
 
 ### Insertion Sorting
 # set up data size vector
@@ -20,14 +20,14 @@ plot(data.size,
      ylab="Numbers of Comparisons",
      main = "Insertion Sorting")
 lines(data.size, 
-      0.0016*data.size*data.size, 
+      0.26*data.size*data.size, 
       type ="l", 
       col = "red")
 lines(data.size, data.size, type ="l", col = "green")
 # legend
 legend("topleft", 
        bty="n",
-       legend = c("Theoretical Upperbound", "Theoretical lowerbound"),
+       legend = c("Y = 0.26*X*X", "Y = X"),
        lty = c(1, 1), 
        col = c("red", "green"),
        lwd = 1,
@@ -55,14 +55,14 @@ plot(data.size,
      ylab="Numbers of Comparisons",
      main = "Merge Sorting")
 lines(data.size, 
-      0.0016*data.size*data.size, 
+      1.5*data.size*log(data.size), 
       type ="l", 
       col = "red")
 lines(data.size, data.size, type ="l", col = "green")
 # legend
 legend("topleft", 
        bty="n",
-       legend = c("Theoretical Upperbound", "Theoretical lowerbound"),
+       legend = c("Y = 1.5*X*log(X)", "Y = X"),
        lty = c(1, 1), 
        col = c("red", "green"),
        lwd = 1,
@@ -90,14 +90,14 @@ plot(data.size,
      ylab="Numbers of Comparisons",
      main = "Quick Sorting")
 lines(data.size, 
-      0.002*data.size*data.size, 
+      1.75*data.size*log(data.size), 
       type ="l", 
       col = "red")
 lines(data.size, data.size, type ="l", col = "green")
 # legend
 legend("topleft", 
        bty="n",
-       legend = c("Theoretical Upperbound", "Theoretical lowerbound"),
+       legend = c("Y = 1.75*X*log(X)", "Y = X"),
        lty = c(1, 1), 
        col = c("red", "green"),
        lwd = 1,
