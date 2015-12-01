@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 
 	for (int i = 0; i < totalNum; i++) {
 
-		arrayLength = (i+1) * 100;
+		arrayLength = (i+1) * 1000;
 
 		// populate data for sorting; sort
 		for (int j = 1; j <= rounds; j++) {
