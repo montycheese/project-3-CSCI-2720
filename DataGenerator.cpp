@@ -13,7 +13,7 @@ int * data;
 int whetherReport = 0;
 long * avgCmp;
 long totalCmp = 0;
-int totalNum = 1000;
+int totalNum = 100;
 int rounds = 50;
 char fileName[16];
 
@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 
 	for (int i = 0; i < totalNum; i++) {
 
-		arrayLength = (i+1) * 100;
+		arrayLength = (i+1) * 1000;
 
 		// populate data for sorting; sort
 		for (int j = 1; j <= rounds; j++) {
