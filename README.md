@@ -13,3 +13,20 @@ The code in this project represents my own work. I have neither received nor giv
 
 Steps to compile:
 1. run $make
+
+How to run DataGenerator:
+./DataGenerator [number]
+
+number: 1 = insertion sort
+2 = merge sort
+3 = quick sort
+
+How to run sort:
+./sort [type] [array]
+
+type: -i = insertion sort
+-m = merge sort
+-q = quick sort
+
+array must be space seperated integers
+
