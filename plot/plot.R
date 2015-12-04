@@ -1,10 +1,10 @@
-# setwd("C:/Users/4malteses/Desktop/plot")
+setwd("C:/Users/4malteses/Desktop/plot")
 
 ### Insertion Sorting
 # set up data size vector
 data.size <- vector()
 for (i in 1:100) {
-  data.size[i] <- i * 100
+  data.size[i] <- i * 1000
 }
 
 # load cmp number
@@ -23,13 +23,12 @@ lines(data.size,
       0.26*data.size*data.size, 
       type ="l", 
       col = "red")
-lines(data.size, data.size, type ="l", col = "green")
 # legend
 legend("topleft", 
        bty="n",
-       legend = c("Y = 0.26*X*X", "Y = X"),
-       lty = c(1, 1), 
-       col = c("red", "green"),
+       legend = c("Y = 0.26*X*X"),
+       lty = c(1), 
+       col = c("red"),
        lwd = 1,
        pt.lwd = 1,
        text.width = 1)
@@ -39,7 +38,7 @@ legend("topleft",
 # set up data size vector
 data.size <- vector()
 for (i in 1:100) {
-  data.size[i] <- i * 100
+  data.size[i] <- i * 1000
 }
 
 # load cmp number
@@ -58,13 +57,12 @@ lines(data.size,
       1.5*data.size*log(data.size), 
       type ="l", 
       col = "red")
-lines(data.size, data.size, type ="l", col = "green")
 # legend
 legend("topleft", 
        bty="n",
-       legend = c("Y = 1.5*X*log(X)", "Y = X"),
-       lty = c(1, 1), 
-       col = c("red", "green"),
+       legend = c("Y = 1.5*X*log(X)"),
+       lty = c(1), 
+       col = c("red"),
        lwd = 1,
        pt.lwd = 1,
        text.width = 1)
@@ -74,7 +72,7 @@ legend("topleft",
 # set up data size vector
 data.size <- vector()
 for (i in 1:100) {
-  data.size[i] <- i * 100
+  data.size[i] <- i * 1000
 }
 
 # load cmp number
@@ -90,16 +88,15 @@ plot(data.size,
      ylab="Numbers of Comparisons",
      main = "Quick Sorting")
 lines(data.size, 
-      1.75*data.size*log(data.size), 
+      1.8*data.size*log(data.size), 
       type ="l", 
       col = "red")
-lines(data.size, data.size, type ="l", col = "green")
 # legend
 legend("topleft", 
        bty="n",
-       legend = c("Y = 1.75*X*log(X)", "Y = X"),
-       lty = c(1, 1), 
-       col = c("red", "green"),
+       legend = c("Y = 1.8*X*log(X)"),
+       lty = c(1), 
+       col = c("red"),
        lwd = 1,
        pt.lwd = 1,
        text.width = 1)
